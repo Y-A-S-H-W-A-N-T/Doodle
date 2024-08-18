@@ -27,7 +27,6 @@ export default function Add_Chapter_Lectures() {
           <TouchableOpacity onPress={()=>router.push({
             pathname: 'chapter_lectures',
             params: {
-              lectures: JSON.stringify(chapters[index]),
               class_id: params.class_id,
               subject_id: params.subject_id,
               chapter_id: item._id

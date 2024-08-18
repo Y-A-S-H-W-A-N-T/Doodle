@@ -13,7 +13,7 @@ export default function classes() {
   const URL = 'http://192.168.29.130:8000'
   
   const getClass = async()=>{
-    axios.post(`${URL}/getClasses`).then((res)=>setClasses(res.data))
+    await axios.post(`${URL}/getClasses`).then((res)=>setClasses(res.data))
   }
 
   console.log("classes = ",classes)

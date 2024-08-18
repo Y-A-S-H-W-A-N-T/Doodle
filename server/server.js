@@ -149,3 +149,28 @@ app.post('/upload_lecture_video',async(req,res)=>{
     res.status(500).send('Error adding lecture');
   }
 })
+
+app.post('/fetch_lectures',async(req,res)=>{
+    const { class_id, subject_id, chapter_id } = req.body
+
+    try{
+        const result = await Classes.findOne(
+            {
+                _id: class_id,
+                "subjects._id": subject_id,
+                "subjects.chapters._id": chapter_id
+            },
+            {
+                "subjects.$": 1
+            }
+        )
+        !result? res.status(404).json({msg: '/fetch_lectures ERROR'}) : ''
+        const lectures = result.subjects[0].chapters.id(chapter_id).lectures;
+        console.log("Lectures : ",lectures)
+        res.status(200).send(lectures)
+    }
+    catch(err){
+        console.log(err)
+        res.status(400).json({msg: 'DB error: /fetch_lectures API ERROR'})
+    }
+})
